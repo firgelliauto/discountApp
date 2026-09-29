@@ -9,7 +9,7 @@ fn cart_lines_discounts_generate_run(input:schema::cart_lines_discounts_generate
         let variant=match line.merchandise(){schema::cart_lines_discounts_generate_run::input::cart::lines::Merchandise::ProductVariant(variant)=>variant,_=>continue};
         let quantity=*line.quantity();
         if !variant.product().has_bulk_discount_tag()||quantity<11{continue;}
-        let (percentage,message)=if quantity>=50{(30.0,"30% off when buying 50 or more")}else{(20.0,"20% off when buying 11+")};
+        let (percentage,message)=if quantity>=50{(30.0,"30% off when buying 50+")}else{(20.0,"20% off when buying 11+")};
         candidates.push(schema::ProductDiscountCandidate{targets:vec![schema::ProductDiscountCandidateTarget::CartLine(schema::CartLineTarget{id:line.id().clone(),quantity:None})],message:Some(message.to_string()),value:schema::ProductDiscountCandidateValue::Percentage(schema::Percentage{value:Decimal(percentage)}),associated_discount_code:None});
     }
     if candidates.is_empty(){return Ok(schema::CartLinesDiscountsGenerateRunResult{operations:vec![]});}
@@ -29,7 +29,7 @@ mod tests {
     #[test]
     fn thirty_percent_at_fifty_and_above()->Result<()>{assert_eq!(percentage(50,true)?,Some(30.0));assert_eq!(percentage(200,true)?,Some(30.0));Ok(())}
     #[test]
-    fn tier_messages_explain_the_thresholds()->Result<()>{assert_eq!(message(11)?,Some("20% off when buying 11+".to_string()));assert_eq!(message(49)?,Some("20% off when buying 11+".to_string()));assert_eq!(message(50)?,Some("30% off when buying 50 or more".to_string()));Ok(())}
+    fn tier_messages_explain_the_thresholds()->Result<()>{assert_eq!(message(11)?,Some("20% off when buying 11+".to_string()));assert_eq!(message(49)?,Some("20% off when buying 11+".to_string()));assert_eq!(message(50)?,Some("30% off when buying 50+".to_string()));Ok(())}
     #[test]
     fn untagged_products_are_ignored()->Result<()>{assert_eq!(percentage(200,false)?,None);Ok(())}
 }
