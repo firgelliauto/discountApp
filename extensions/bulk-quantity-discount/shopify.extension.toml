@@ -1,0 +1,14 @@
+api_version = "2026-01"
+[[extensions]]
+name = "Bulk quantity discount"
+description = "Quantity tiers for products tagged Bulk Discount"
+handle = "bulk-quantity-discount"
+uid = "8ddf29c0-bc64-f1f4-0b8b-0186397feaba63a7ce9f"
+type = "function"
+[[extensions.targeting]]
+target = "cart.lines.discounts.generate.run"
+input_query = "src/cart_lines_discounts_generate_run.graphql"
+export = "cart_lines_discounts_generate_run"
+[extensions.build]
+command = "cargo build --target=wasm32-unknown-unknown --release"
+path = "target/wasm32-unknown-unknown/release/bulk-quantity-discount.wasm"

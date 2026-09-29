@@ -1,0 +1,8 @@
+node_modules
+.git
+.shopify
+.react-router
+build
+extensions/*/target
+prisma/*.sqlite
+prisma/*.sqlite-journal

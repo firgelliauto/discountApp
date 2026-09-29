@@ -1,0 +1,11 @@
+node_modules
+.env
+.shopify
+.react-router
+build
+dist
+*.sqlite
+*.sqlite-journal
+extensions/*/dist
+extensions/*/generated
+extensions/*/target

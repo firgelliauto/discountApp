@@ -1,0 +1,19 @@
+client_id = "437dd0eea4a1cf3f6a7d55be55c46dca"
+name = "Firgelli Bulk Discount"
+application_url = "https://pens-grain-managed-zoning.trycloudflare.com"
+embedded = true
+[access_scopes]
+scopes = "write_discounts"
+[auth]
+redirect_urls = ["https://pens-grain-managed-zoning.trycloudflare.com/auth/callback"]
+[webhooks]
+api_version = "2026-07"
+[[webhooks.subscriptions]]
+uri = "/webhooks/app/uninstalled"
+topics = ["app/uninstalled"]
+[[webhooks.subscriptions]]
+uri = "/webhooks/app/scopes_update"
+topics = ["app/scopes_update"]
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "firgellitest.myshopify.com"

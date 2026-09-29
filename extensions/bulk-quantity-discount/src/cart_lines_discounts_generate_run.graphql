@@ -1,0 +1,19 @@
+query Input {
+  cart {
+    lines {
+      id
+      quantity
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          product {
+            hasBulkDiscountTag: hasAnyTag(tags: ["Bulk Discount"])
+          }
+        }
+      }
+    }
+  }
+  discount {
+    discountClasses
+  }
+}
